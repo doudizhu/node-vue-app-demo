@@ -3,10 +3,32 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <p>姓名：{{apis.name}}</p>
+      <p>微信：{{apis.wechat}}</p>
     </div>
     <router-view/>
   </div>
 </template>
+<script lang="ts">
+import axios from 'axios'
+import {Component,Vue,} from 'vue-property-decorator'
+@Component({
+  components:{}
+})
+export default class ViewComponent extends Vue {
+  /**data */
+  apis= {}
+
+  /**life hook */
+  created(){
+    axios.get('/api/datas').then(res=>{
+      console.log(res.data);
+      this.apis = res.data;
+    })
+  }
+}
+</script>
+
 <style lang="stylus">
 #app
   font-family 'Avenir', Helvetica, Arial, sans-serif
